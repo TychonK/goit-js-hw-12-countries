@@ -11,19 +11,35 @@ import fetchCountries from "./js/fetchCountries"
 var debounce = require('lodash.debounce');
 
 const searchInput = document.querySelector("#country-search")
+const list = document.querySelector("#country-list")
 
 function onInputSearch(e) {
     fetchCountries(searchInput.value)
         .then(r => r.json())
-        .then(r => {
-            if (r.length > 10) {
+        .then(data => {
+            if (data.length > 10) {
                 alert({
                     text: "Specify your query man"
                 })
-            } else if ((r.length >= 2) && (r.length < 10)) {
-                console.log(r)
-            } else {
+            } else if ((data.length >= 2) && (data.length < 10)) {
+                
+                if (list.hasChildNodes()) {
+                    list.innerHTML = ''
+                }
+
+                data.map(function (currentValue, index) {
+                    function createElement() {
+                        var li = document.createElement("li")
+                        li.textContent = currentValue.name;
+                        return li;
+                    }
+                    list.appendChild(createElement())
+                })
+            } else if (data.length = 1) {
                 console.log("final function")
+                if (list.hasChildNodes()) {
+                    list.innerHTML = ''
+                }
             }
         })
 }
