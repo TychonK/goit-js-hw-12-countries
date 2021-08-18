@@ -12,6 +12,7 @@ var debounce = require('lodash.debounce');
 
 const searchInput = document.querySelector("#country-search")
 const list = document.querySelector("#country-list")
+const card = document.querySelector("#main-card")
 
 function onInputSearch(e) {
     fetchCountries(searchInput.value)
@@ -36,10 +37,13 @@ function onInputSearch(e) {
                     list.appendChild(createElement())
                 })
             } else if (data.length = 1) {
-                console.log("final function")
+                console.log(data)
                 if (list.hasChildNodes()) {
                     list.innerHTML = ''
+                } else if (card.hasChildNodes()) {
+                    card.innerHTML = ''
                 }
+                card.innerHTML = `<h2>${data[0].name}</h2>`;
             }
         })
 }
